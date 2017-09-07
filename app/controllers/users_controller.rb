@@ -3,11 +3,11 @@ class UsersController < ApplicationController
 
   def index
     @user = User.all
+
   end
 
   def show
     @bookings = Bookroom.where(user_id: @user)
-
     @user = User.find_by_id(params[:id])
     @booking_groups_by_date_start =
     Bookroom.select('user_id, date_start, count(*) as total_bookings')
@@ -17,7 +17,11 @@ class UsersController < ApplicationController
     @allBookingsPerGroup = []
     @booking_groups_by_date_start.each do |group|
       @allBookingsPerGroup << Bookroom.where(user_id: current_user.id, date_start: group.date_start)
+
+
     end
+
+    @me = Space.where("user_id = #{current_user.id}")
 
     # @bookings_date = Bookroom.where(user_id: @user, date_start: "09/09/2017")
     # @dategroup = Bookroom.includes(:date_start)

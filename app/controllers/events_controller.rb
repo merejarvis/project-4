@@ -2,7 +2,7 @@ class EventsController < ApplicationController
   before_action :isAdmin, except: [:index, :show]
 
   def index
-    @all_events = Event.where('event_start>?', DateTime.now.change(:offset => "+0000"))
+    @all_events = Event.where('event_start>?', DateTime.now.change(:offset => "+0000")).reverse
   end
 
   def create
